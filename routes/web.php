@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('quizzes', function () {
     return view('quizzes.index');
 });
+
+Route::get('quizzes/show', function () {
+    return view('quizzes.show');
+});
