@@ -16,8 +16,10 @@
     - [composer の実行](#composer-%E3%81%AE%E5%AE%9F%E8%A1%8C)
     - [npm(Node.jsのパッケージマネージャ)を利用](#npmnodejs%E3%81%AE%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%83%9E%E3%83%8D%E3%83%BC%E3%82%B8%E3%83%A3%E3%82%92%E5%88%A9%E7%94%A8)
         - [パッケージをインストール](#%E3%83%91%E3%83%83%E3%82%B1%E3%83%BC%E3%82%B8%E3%82%92%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
-    - [npmで定義されたコマンドを実行](#npm%E3%81%A7%E5%AE%9A%E7%BE%A9%E3%81%95%E3%82%8C%E3%81%9F%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E5%AE%9F%E8%A1%8C)
+        - [npmで定義されたコマンドを実行](#npm%E3%81%A7%E5%AE%9A%E7%BE%A9%E3%81%95%E3%82%8C%E3%81%9F%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%82%92%E5%AE%9F%E8%A1%8C)
     - [DB(mysql)の直接操作](#dbmysql%E3%81%AE%E7%9B%B4%E6%8E%A5%E6%93%8D%E4%BD%9C)
+        - [mysqlコンテナ内で動いているMySQLへログイン](#mysql%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E5%86%85%E3%81%A7%E5%8B%95%E3%81%84%E3%81%A6%E3%81%84%E3%82%8Bmysql%E3%81%B8%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3)
+        - [データベースを作成（初回のみ）](#%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E3%82%92%E4%BD%9C%E6%88%90%E5%88%9D%E5%9B%9E%E3%81%AE%E3%81%BF)
     - [Laravel artisan を実行](#laravel-artisan-%E3%82%92%E5%AE%9F%E8%A1%8C)
         - [ルートを確認](#%E3%83%AB%E3%83%BC%E3%83%88%E3%82%92%E7%A2%BA%E8%AA%8D)
         - [コントローラを作成](#%E3%82%B3%E3%83%B3%E3%83%88%E3%83%AD%E3%83%BC%E3%83%A9%E3%82%92%E4%BD%9C%E6%88%90)
@@ -147,7 +149,7 @@ sail npm install
 ```
 
 
-### npmで定義されたコマンドを実行
+#### npmで定義されたコマンドを実行
 `package.json` の `scripts` に書いているコマンドを実行します。  
 以下の例では、`scripts` の `dev` に書いているコマンドが実行されます。  
 (`npm run development`が実行されるので結果的に、`webpack.js` が実行されます。
@@ -159,12 +161,26 @@ sail npm run dev
 
 
 ### DB(mysql)の直接操作
-mysqlコンテナ内で動いているMySQLを操作できます。
+#### mysqlコンテナ内で動いているMySQLへログイン
 ```
 sail mysql
 ```
 以下を見ると分かる通り `root` ユーザーでMySQLにログインしています。  
 https://github.com/laravel/sail/blob/v0.0.8/bin/sail#L178-L180
+
+#### データベースを作成（初回のみ）
+最初はデータベースが存在しないので作成してください。  
+（`sail mysql`をしてMySQLにログインした後に実行してください）
+
+以下でデータベースの一覧が見れます。
+```sql
+SHOW DATABASES;
+```
+
+以下でデータベース `quiz_app` を作成できます。
+```sql
+CREATE DATABASE `quiz_app`;
+```
 
 
 ### Laravel artisan を実行
