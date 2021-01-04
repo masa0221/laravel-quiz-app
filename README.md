@@ -1,62 +1,185 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## 概要
+- PHPのWebフレームワーク Laravel で作成されたWebアプリケーションのサンプルです
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## 準備
+### 1. ダウンロード
+```
+git clone https://github.com/masa0221/laravel-quiz-app.git
+```
+clone できたら、以下でディレクトリを移動してください。
+```
+cd laravel-quiz-app
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 2. 環境変数用のファイルを用意
+`.env` の内容が環境変数(サーバーの中で利用できる変数)になります
+```
+cp .env.example .env
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+### 3. `composer` を使ってパッケージをインストール
+`composer` というパッケージ管理を使ってパッケージのインストールをします。
+※ `composer` を使うと https://packagist.org/ で管理されているパッケージがインストールされます。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+docker run --rm -it -v $PWD:/app -w /app composer composer install
+```
+※ `composer install` コマンドを実行すると、 `composer.json` に記述されているパッケージが `./vendor/` ディレクトリ以下にインストールされます
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+### 4. `sail` コマンドのエイリアスを作成
+Laravel の `sail` コマンドは、 `docker-compose` コマンドをかんたんに叩くことができるものです。  
+Dockerの上で動いているLaravelや、DB(mysql)などの操作が行いやすくなるので、エイリアス(ショートカット)を作成しておきましょう。
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+※ `cat ./vendor/bin/sail` で具体的にどういうコマンドが実行されているか見ることができます  
+  または https://github.com/laravel/sail/blob/v0.0.8/bin/sail を参照
+ 
 
-### Premium Partners
+```
+alias sail='bash vendor/bin/sail'
+```
+※シェルを起動したときに、再度設定する必要があります。  
+ 面倒な方は以下のように起動時の設定を追加しておいてください。
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+#### 起動時にエイリアスを設定する方法
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+利用しているシェルを確認
+```
+echo $SHELL;
+```
+- bashの場合 => `~/.bashrc` ファイルにaliasのコマンドを追記
+- zshの場合  => `~/.zshrc` ファイルにaliasのコマンドを追記
+- ほか       => さては初心者ではないですね...! ( 「シェル名 Run-Control Files」で検索してください )
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+echo "alias sail='bash vendor/bin/sail'" >> ~/.bashrc
+```
+※`~/.bashrc` の部分は利用しているシェルによって適宜変更してください。
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 起動 / 停止
+`sail` コマンドを使った起動方法をまとめています。  
+※ 前述の通り `sail` は、内部的には `docker-compose` を実行しているだけなので、`docker-compose` のコマンドと基本的には同じです。
 
-## License
+### 起動
+`docker-compose.yml` に書いている構成でDockerコンテナを起動します。
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+sail up -d
+```
+※ `-d` オプションをつけずに実行するとコンテナのログが見える状態になります(`Ctrl` + `C` を押す(同時押しする)と停止します)  
+
+
+### 停止
+```
+sail down
+```
+
+保存しているDBの情報もすべて削除したい場合は -v オプションを付けてください。
+```
+sail down -v
+```
+
+
+## 操作
+ここでは、コンテナが起動している状態の操作についてまとめています。
+
+### composer の実行
+laravelのコンテナが起動している場合は、laravelのコンテナの中にあるcomposerを実行することができます。
+```
+sail composer install
+```
+
+
+### npm(Node.jsのパッケージマネージャ)を利用
+Node.jsのパッケージマネージャにあたるnpmを動かすことができます。
+
+#### パッケージをインストール
+以下のコマンドで `package.json` に書いているパッケージをインストールできます。  
+パッケージは `node_modules` ディレクトリ以下に配置されます。
+
+```
+sail npm install
+```
+
+
+### npmで定義されたコマンドを実行
+`package.json` の `scripts` に書いているコマンドを実行します。  
+以下の例では、`scripts` の `dev` に書いているコマンドが実行されます。  
+(`npm run development`が実行されるので結果的に、`webpack.js` が実行されます。
+
+```
+sail npm run dev
+```
+※ 最終的に `public` ディレクトリ以下にjsとcssが配置されます。 （詳しくはwebpackの仕様を参照）
+
+
+### DB(mysql)の直接操作
+mysqlコンテナ内で動いているMySQLを操作できます。
+```
+sail mysql
+```
+以下を見ると分かる通り `root` ユーザーでMySQLにログインしています。  
+https://github.com/laravel/sail/blob/v0.0.8/bin/sail#L178-L180
+
+
+### Laravel artisan を実行
+Laravel 操作は主に `artisan` というコマンドを使います。  
+本来は `php artisan xxx` という形で実行しますが、Dockerで動いている場合は `sail` コマンドを使うとかんたんに実行できます
+
+```
+sail artisan
+```
+以下を見ると分かる通り、内部的にはdocker-composeでphpのコンテナの中にある、phpコマンドを使ってartisanを動かします。  
+https://github.com/laravel/sail/blob/v0.0.8/bin/sail#L98-L101
+
+`artisan` は、様々なコマンドを実行できるので、具体的には `artisan` のヘルプを見てください。
+
+例として、よく使うものを記載しておきます。
+
+#### ルートを確認
+`routes` ディレクトリ以下のファイルに設定されているルートの設定を見ることをができます。
+```
+sail artisan route:list
+```
+
+
+#### コントローラを作成
+`app/Http/Controllers` ディレクトリ以下にコントローラのクラスを作成します。  
+以下の例では、`QuizzesController` が作成されます。
+
+```
+sail artisan make:controller QuizzesController
+```
+
+
+#### データベースのマイグレーション用ファイルを作成
+データベースのテーブルを追加/削除したり、テーブル構成を変更するためのファイルを作成します。  
+以下の例では、 `quizzes` テーブルを作成するためのファイルが作成されます。
+
+```
+sail artisan make:migration create_quizzes_table --create=quizzes
+```
+
+
+#### DBのリセット
+DBの構成をリセットして、マイグレーション用の設定を再度一つずつ実行します。
+
+```
+sail artisan migrate:refres
+```
+これを実行するとデータが無くなりますが構成がリセットされ初期状態になります。  
+※ 予めデータが登録された状態を作りたい場合は、 `make:seeder` を使ってください。
+
+
+#### モデルを作成
+`app/Http/Models` ディレクトリ以下にモデルのクラスを作成します。  
+以下の例では、`Quiz が作成されます。
+```
+sail artisan make:model Quiz
+```
