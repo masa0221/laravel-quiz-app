@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/css
+/public/js
+/public/mix-manifest.json
 /storage/*.key
 /vendor
 .env
@@ -9,5 +12,6 @@
 docker-compose.override.yml
 Homestead.json
 Homestead.yaml
+package-lock.json
 npm-debug.log
 yarn-error.log

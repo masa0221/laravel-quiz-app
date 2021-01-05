@@ -28,3 +28,7 @@ Route::get('quizzes/show', function () {
 Route::get('quizzes/create', function () {
     return view('quizzes.create');
 });
+
+Route::delete('quizzes/{id}', function ($id) {
+    return json_encode(['message' => 'ID:'.$id.' が削除されるIDもです(仮の出力)']);
+});
