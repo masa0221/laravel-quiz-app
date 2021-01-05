@@ -24,3 +24,7 @@ Route::get('quizzes', function () {
 Route::get('quizzes/show', function () {
     return view('quizzes.show');
 });
+
+Route::get('quizzes/create', function () {
+    return view('quizzes.create');
+});
