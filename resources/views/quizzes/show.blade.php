@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="mt-3 mb-5 text-center">
-    <a href="./" type="button" class="btn btn-link">一覧に戻る</a>
+    <a href="{{ route('quizzes.index') }}" type="button" class="btn btn-link">一覧に戻る</a>
   </div>
 </div>
 </body>

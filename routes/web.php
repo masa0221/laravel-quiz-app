@@ -19,16 +19,16 @@ Route::get('/', function () {
 
 Route::get('quizzes', function () {
     return view('quizzes.index');
-});
+})->name('quizzes.index');
 
 Route::get('quizzes/show', function () {
     return view('quizzes.show');
-});
+})->name('quizzes.show');
 
 Route::get('quizzes/create', function () {
     return view('quizzes.create');
-});
+})->name('quizzes.create');
 
 Route::delete('quizzes/{id}', function ($id) {
     return json_encode(['message' => 'ID:'.$id.' が削除されるIDもです(仮の出力)']);
-});
+})->name('quizzes.delete');
