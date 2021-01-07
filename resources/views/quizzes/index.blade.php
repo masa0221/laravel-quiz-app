@@ -20,12 +20,12 @@
       <tbody>
         <tr>
           <th scope="row">1</th>
-          <td><a href="{{ route('quizzes.show') }}">問題1問題1問題1</a></td>
+          <td><a href="{{ route('quizzes.show', 1) }}">問題1問題1問題1</a></td>
           <td><button type="button" class="delete-quiz btn btn-danger btn-sm" data-id="1">削除</button></td>
         </tr>
         <tr>
           <th scope="row">2</th>
-          <td><a href="{{ route('quizzes.show') }}">問題2問題2問題2</a></td>
+          <td><a href="{{ route('quizzes.show', 2) }}">問題2問題2問題2</a></td>
           <td><button type="button" class="delete-quiz btn btn-danger btn-sm" data-id="2">削除</button></td>
         </tr>
       </tbody>
