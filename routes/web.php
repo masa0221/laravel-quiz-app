@@ -32,3 +32,5 @@ Route::get('quizzes/create', function () {
 Route::delete('quizzes/{id}', function ($id) {
     return json_encode(['message' => 'ID:'.$id.' が削除されるIDもです(仮の出力)']);
 })->name('quizzes.delete');
+
+Route::post('quizzes', 'App\Http\Controllers\QuizController@store')->name('quizzes.store');
