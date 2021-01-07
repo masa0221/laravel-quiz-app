@@ -34,6 +34,18 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        // 入力内容のチェック
+        // ルールに一致しない入力の場合は、自動的に入力画面を表示させる
+        $request->validate([
+            'question' => 'required|max:255',
+            'answer_a' => 'required|max:255',
+            'answer_b' => 'required|max:255',
+            'answer_c' => 'required|max:255',
+            'answer_d' => 'required|max:255',
+            'correct_answer' => 'required|in:A,B,C,D',
+            'explanation' => 'max:65535',
+        ]);
+
         return view('quizzes.index');
     }
 
