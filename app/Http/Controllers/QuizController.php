@@ -14,7 +14,9 @@ class QuizController extends Controller
      */
     public function index()
     {
-        return view('quizzes.index');
+        return view('quizzes.index', [
+            'quizzes' => Quiz::all(),
+        ]);
     }
 
     /**
