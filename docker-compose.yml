@@ -41,6 +41,7 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
         volumes:
             - 'sailmysql:/var/lib/mysql'
+            - './docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
         networks:
             - sail
     redis:
