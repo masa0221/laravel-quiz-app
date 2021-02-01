@@ -226,7 +226,7 @@ sail artisan make:migration create_quizzes_table --create=quizzes
 DBの構成をリセットして、マイグレーション用の設定を再度一つずつ実行します。
 
 ```
-sail artisan migrate:refres
+sail artisan migrate:refresh
 ```
 これを実行するとデータが無くなりますが構成がリセットされ初期状態になります。  
 ※ 予めデータが登録された状態を作りたい場合は、 `make:seeder` を使ってください。
