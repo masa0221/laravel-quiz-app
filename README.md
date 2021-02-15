@@ -37,8 +37,10 @@
 ## 準備
 ### 1. ダウンロード
 ```
-git clone https://github.com/masa0221/laravel-quiz-app.git
+git clone -b unimplemented https://github.com/masa0221/laravel-quiz-app.git
 ```
+※`unimplemented`は何も実装されていないブランチです。もし完成形を見たい場合は`-b unimplemented`を外してください
+
 clone できたら、以下でディレクトリを移動してください。
 ```
 cd laravel-quiz-app
