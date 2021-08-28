@@ -45,7 +45,7 @@ services:
         networks:
             - sail
     redis:
-        image: 'redis:alpine'
+        image: 'redis:6.2.5-alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
@@ -59,7 +59,7 @@ services:
     #     networks:
     #         - sail
     mailhog:
-        image: 'mailhog/mailhog:latest'
+        image: 'mailhog/mailhog:v1.0.1'
         ports:
             - 1025:1025
             - 8025:8025
