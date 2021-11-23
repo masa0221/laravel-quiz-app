@@ -30,6 +30,7 @@ services:
     #     depends_on:
     #         - laravel.test
     mysql:
+        platform: linux/x86_64
         image: 'mysql:8.0.21'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
