@@ -59,10 +59,10 @@ cp .env.example .env
 ※ `composer` を使うと https://packagist.org/ で管理されているパッケージがインストールされます。
 
 ```
-docker run --rm -it -v $PWD:/app -w /app composer:2.1.9 composer install
+docker run --rm -it -u $UID:$GID -v $(pwd):/app -w /app composer:2.2.7 composer install
 ```
 ※ `composer install` コマンドを実行すると、 `composer.json` に記述されているパッケージが `./vendor/` ディレクトリ以下にインストールされます  
-※ `composer:2.1.9` のDockerイメージを使います。( [composer:2.1.9](https://hub.docker.com/layers/composer/library/composer/2.1.9/images/sha256-dbefe926066abe9cb607a9ca6deb3571ba9891b3e485da0e9c6fab3ab05222bf?context=explore) は、 PHP8.0.12 です。 )
+※ [composer:2.2.7](https://hub.docker.com/layers/composer/library/composer/2.2.7/images/sha256-d75df114c4f3179780cb2402bb0d996e0fa7da4674756a2d184ea161bd908e9f?context=explore) のDockerイメージを使います。
 
 
 ### 4. `sail` コマンドのエイリアスを作成
