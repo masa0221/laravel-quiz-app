@@ -88,7 +88,9 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('quizzes.edit', [
+            'quiz' => Quiz::find($id),
+        ]);
     }
 
     /**
@@ -100,7 +102,36 @@ class QuizController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 入力内容のチェック
+        // ルールに一致しない入力の場合は、自動的に入力画面を表示させる
+        $validatedData = $request->validate([
+            'question' => 'required|max:255',
+            'answer_a' => 'required|max:255',
+            'answer_b' => 'required|max:255',
+            'answer_c' => 'required|max:255',
+            'answer_d' => 'required|max:255',
+            'correct_answer' => 'required|in:A,B,C,D',
+            'explanation' => 'max:65535',
+        ]);
+
+        // ModelをDBから取得
+        $Quiz = Quiz::findOrFail($id);
+
+        // Modelの値を更新
+        $Quiz->question = $validatedData['question'];
+        $Quiz->answer_a = $validatedData['answer_a'];
+        $Quiz->answer_b = $validatedData['answer_b'];
+        $Quiz->answer_c = $validatedData['answer_c'];
+        $Quiz->answer_d = $validatedData['answer_d'];
+        $Quiz->correct_answer = $validatedData['correct_answer'];
+        $Quiz->explanation = $validatedData['explanation'];
+
+        // ModelをDBに保存
+        $Quiz->save();
+
+        // 一覧ページを表示
+        // ※ リロードされたときに、もう一度データが保存されないようにリダイレクトさせる
+        return redirect(route('quizzes.index'));
     }
 
     /**
